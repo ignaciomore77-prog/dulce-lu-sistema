@@ -1547,6 +1547,15 @@ function printTodayForCadete(){
 
 function renderAll(){ fillClientOptions(); fillCategoryOptions(); renderDashboard(); renderOrders(); renderClients(); renderProducts(); renderSupplies(); renderRecipes(); renderSales(); toggleEnvioMonto(); recalcSaldo(); }
 renderAll();
+  function recalcTotals(){
+  const itemsTotal = currentOrderItems.reduce((a,b)=>a + Number(b.subtotal || 0), 0);
+  const topper = document.getElementById("fTopper")?.value === "SI" ? 1000 : 0;
+  const entrega = document.getElementById("fEntrega") ? document.getElementById("fEntrega").value : "RETIRA";
+  const envio = entrega === "ENVIO" ? Number(document.getElementById("fEnvioMonto")?.value || 0) : 0;
+
+  document.getElementById("fTotal").value = itemsTotal + topper + envio;
+  recalcSaldo();
+}
 </script>
 </body>
 </html>
