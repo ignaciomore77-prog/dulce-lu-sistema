@@ -1556,6 +1556,26 @@ renderAll();
   document.getElementById("fTotal").value = itemsTotal + topper + envio;
   recalcSaldo();
 }
+  function recalcTotals(){
+  let total = 0;
+
+  // Sumar TODOS los inputs de subtotal visibles
+  document.querySelectorAll("input[id*='subtotal']").forEach(el => {
+    total += Number(el.value || 0);
+  });
+
+  const topper = document.getElementById("fTopper")?.value === "SI" ? 1000 : 0;
+  const entrega = document.getElementById("fEntrega")?.value || "RETIRA";
+  const envio = entrega === "ENVIO" ? Number(document.getElementById("fEnvioMonto")?.value || 0) : 0;
+
+  total += topper + envio;
+
+  document.getElementById("fTotal").value = total;
+
+  // saldo
+  const sena = Number(document.getElementById("fSena")?.value || 0);
+  document.getElementById("fSaldo").value = total - sena;
+}
 </script>
 </body>
 </html>
